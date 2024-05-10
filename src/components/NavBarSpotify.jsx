@@ -1,15 +1,16 @@
-import { Button, Col, Container, Form, FormGroup, InputGroup, Nav, Navbar } from "react-bootstrap"
+import { Button, Col, Container, Form, InputGroup, Nav, Navbar } from "react-bootstrap"
 import logo from "../assets/logo/logo.png"
 import { useDispatch } from "react-redux"
 import { SET_SEARCH, getSongsAction } from "../Redux/Actions"
+import { useState } from "react"
 
 const NavBarSpotify = () => {
+  const [search, setSearch] = useState("")
   const dispatch = useDispatch()
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log("Sumbit")
-    dispatch(getSongsAction(e.target.value, SET_SEARCH))
+    dispatch(getSongsAction(search, SET_SEARCH))
   }
 
   return (
@@ -34,18 +35,20 @@ const NavBarSpotify = () => {
                   </Nav.Link>
                 </li>
                 <li>
-                  <Nav.Link>
-                    <Form onSubmit={handleSubmit}>
-                      <FormGroup>
-                        <InputGroup className='mt-3'>
-                          <Form.Control placeholder='Search' aria-label='Search' type='text' />
-                          <Button variant='outline-secondary' size='sm' type='submit'>
-                            Go
-                          </Button>
-                        </InputGroup>
-                      </FormGroup>
-                    </Form>
-                  </Nav.Link>
+                  <Form onSubmit={handleSubmit}>
+                    <InputGroup className='mt-3'>
+                      <Form.Control
+                        placeholder='Search'
+                        aria-label='Search'
+                        type='text'
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                      />
+                      <Button variant='outline-secondary' size='sm' type='submit'>
+                        Go
+                      </Button>
+                    </InputGroup>
+                  </Form>
                 </li>
               </ul>
             </Nav>

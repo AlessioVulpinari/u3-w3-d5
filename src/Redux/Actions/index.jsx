@@ -2,10 +2,6 @@ export const STRIVE_ENDPOINT = "https://striveschool-api.herokuapp.com/api/deeze
 export const ADD_TO_PLAYLIST = "ADD_TO_PLAYLIST"
 export const SET_SEARCH = "SET_SEARCH"
 
-// export const mapAndSlice = (array) => {
-//   return array.map((singleArtist) => singleArtist.data.slice(0, 5))
-// }
-
 export const getSongsAction = (artistName, actionType) => {
   return async (dispatch) => {
     try {
