@@ -11,6 +11,8 @@ export const ADD_TO_EMINEM = "ADD_TO_EMINEM"
 export const ADD_TO_PERRY = "ADD_TO_PERRY"
 export const ADD_LIKE = "ADD_LIKE"
 export const REMOVE_LIKE = "REMOVE_LIKE"
+export const ADD_TO_PLAYLIST_1 = "ADD_TO_PLAYLIST_1"
+export const ADD_TO_PLAYLIST_2 = "ADD_TO_PLAYLIST_2"
 
 export const getSongsAction = (artistName, actionType) => {
   return async (dispatch) => {

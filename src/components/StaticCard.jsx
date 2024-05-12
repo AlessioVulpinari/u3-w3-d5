@@ -1,6 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { ADD_LIKE, ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, REMOVE_LIKE, SET_SELECTED, getSongsAction } from "../Redux/Actions"
+import {
+  ADD_LIKE,
+  ADD_TO_EMINEM,
+  ADD_TO_PERRY,
+  ADD_TO_PLAYLIST_1,
+  ADD_TO_PLAYLIST_2,
+  ADD_TO_QUEEN,
+  REMOVE_LIKE,
+  SET_SELECTED,
+  getSongsAction,
+} from "../Redux/Actions"
 import { useDispatch, useSelector } from "react-redux"
 import { Alert, Col, Placeholder, Row } from "react-bootstrap"
 
@@ -14,6 +24,20 @@ const StaticCard = () => {
   const hasError = useSelector((state) => state.search.hasError)
   const errorMsg = useSelector((state) => state.search.errorMsg)
   const likes = useSelector((state) => state.like.content)
+  const playlist1 = useSelector((state) => state.playlists.playlist1)
+  const playlist2 = useSelector((state) => state.playlists.playlist2)
+
+  const addSongToPlaylist1 = (song) => {
+    if (playlist1.findIndex((playlistSong) => playlistSong.id === song.id) === -1) {
+      dispatch({ type: ADD_TO_PLAYLIST_1, payload: song })
+    }
+  }
+
+  const addSongToPlaylist2 = (song) => {
+    if (playlist2.findIndex((playlistSong) => playlistSong.id === song.id) === -1) {
+      dispatch({ type: ADD_TO_PLAYLIST_2, payload: song })
+    }
+  }
 
   const albumCard = (song) => {
     return (
@@ -28,11 +52,16 @@ const StaticCard = () => {
           Track: {song.title} <br />
           Artist: {song.artist.name}
         </p>
-        {!likes.includes(song.id) ? (
-          <i className='bi bi-star' onClick={() => dispatch({ type: ADD_LIKE, payload: song.id })} />
-        ) : (
-          <i className='bi bi-star-fill' onClick={() => dispatch({ type: REMOVE_LIKE, payload: song.id })} />
-        )}
+        <div className='d-flex justify-content-evenly'>
+          {!likes.includes(song.id) ? (
+            <i className='bi bi-star' onClick={() => dispatch({ type: ADD_LIKE, payload: song.id })} />
+          ) : (
+            <i className='bi bi-star-fill' onClick={() => dispatch({ type: REMOVE_LIKE, payload: song.id })} />
+          )}
+
+          <i className='bi bi-1-circle' onClick={() => addSongToPlaylist1(song)} />
+          <i className='bi bi-2-circle' onClick={() => addSongToPlaylist2(song)}></i>
+        </div>
       </Col>
     )
   }
