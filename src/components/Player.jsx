@@ -7,7 +7,7 @@ import repeatIcon from "../assets/playerbuttons/repeat.png"
 import { useSelector } from "react-redux"
 
 const Player = () => {
-  const selected = useSelector((state) => state.selected.selectedSong)
+  const selectedSong = useSelector((state) => state.selected.selectedSong)
 
   return (
     <Container className='fixed-bottom bg-container pt-1' fluid>
@@ -35,16 +35,15 @@ const Player = () => {
               <div className='progress mt-3'>
                 <div role='progressbar'></div>
               </div>
+              {selectedSong && (
+                <div>
+                  <p className='text-center text-white'> {selectedSong.title}</p>
+                </div>
+              )}
             </Col>
           </Row>
         </Col>
       </Row>
-      {selected && (
-        <div>
-          <p> {selected.name}</p>
-          <img src={selected.imgUrl}></img>
-        </div>
-      )}
     </Container>
   )
 }

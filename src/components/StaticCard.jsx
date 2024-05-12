@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, getSongsAction } from "../Redux/Actions"
+import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, SET_SELECTED, getSongsAction } from "../Redux/Actions"
 import { useDispatch, useSelector } from "react-redux"
 import { Alert, Col, Placeholder, Row } from "react-bootstrap"
 
@@ -16,7 +17,12 @@ const StaticCard = () => {
   const albumCard = (song) => {
     return (
       <Col className='text-center' key={song.id}>
-        <img className='img-fluid' src={song.album.cover_medium} alt='track' />
+        <img
+          className='img-fluid'
+          src={song.album.cover_medium}
+          alt='track'
+          onClick={() => dispatch({ type: SET_SELECTED, payload: song })}
+        />
         <p>
           Track: {song.title} <br />
           Artist: {song.artist.name}

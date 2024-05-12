@@ -9,6 +9,8 @@ export const SET_SELECTED = "SET_SELECTED"
 export const ADD_TO_QUEEN = "ADD_TO_QUEEN"
 export const ADD_TO_EMINEM = "ADD_TO_EMINEM"
 export const ADD_TO_PERRY = "ADD_TO_PERRY"
+export const ADD_LIKE = "ADD_LIKE"
+export const REMOVE_LIKE = "REMOVE_LIKE"
 
 export const getSongsAction = (artistName, actionType) => {
   return async (dispatch) => {
@@ -20,7 +22,6 @@ export const getSongsAction = (artistName, actionType) => {
       const response = await fetch(STRIVE_ENDPOINT + artistName)
       if (response.ok) {
         const data = await response.json()
-        console.log(data)
         if (data.data.length === 0) {
           console.log("Entrato")
           throw new Error("No Songs Founded")

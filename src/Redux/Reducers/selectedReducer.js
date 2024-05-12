@@ -1,10 +1,7 @@
 import { SET_SELECTED } from "../Actions"
 
 const initialState = {
-  selectedSong: {
-    name: "",
-    imgUrl: "",
-  },
+  selectedSong: null,
 }
 
 const selectedSong = (state = initialState, action) => {
@@ -14,6 +11,7 @@ const selectedSong = (state = initialState, action) => {
         ...state,
         selectedSong: action.payload,
       }
+
     default:
       return state
   }
