@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, getSongsAction } from "../Redux/Actions"
 import { useDispatch, useSelector } from "react-redux"
-import { Col, Placeholder, Row } from "react-bootstrap"
+import { Alert, Col, Placeholder, Row } from "react-bootstrap"
 
 const StaticCard = () => {
   const dispatch = useDispatch()
@@ -11,6 +11,7 @@ const StaticCard = () => {
   const search = useSelector((state) => state.search.content)
   const isLoading = useSelector((state) => state.search.isLoading)
   const hasError = useSelector((state) => state.search.hasError)
+  const errorMsg = useSelector((state) => state.search.errorMsg)
 
   const albumCard = (song) => {
     return (
@@ -32,7 +33,7 @@ const StaticCard = () => {
 
   return (
     <>
-      {!search && isLoading && !hasError && (
+      {!search && isLoading && !hasError ? (
         <Row>
           <Col xs={10}>
             <Placeholder as={"div"} className='artistCard' animation='glow'>
@@ -62,6 +63,13 @@ const StaticCard = () => {
             </Placeholder>
           </Col>
         </Row>
+      ) : (
+        hasError && (
+          <Alert variant='danger my-3 text-dark'>
+            <Alert.Heading className='text-dark'>Oh snap! You got an error!</Alert.Heading>
+            <p className='text-dark'>{errorMsg}</p>
+          </Alert>
+        )
       )}
       {search && (
         <Row>

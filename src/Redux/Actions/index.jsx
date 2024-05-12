@@ -20,6 +20,11 @@ export const getSongsAction = (artistName, actionType) => {
       const response = await fetch(STRIVE_ENDPOINT + artistName)
       if (response.ok) {
         const data = await response.json()
+        console.log(data)
+        if (data.data.length === 0) {
+          console.log("Entrato")
+          throw new Error("No Songs Founded")
+        }
         dispatch({ type: actionType, payload: data.data })
       } else {
         if (response.status === 400) {
