@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react"
-import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, SET_SELECTED, getSongsAction } from "../Redux/Actions"
+import { ADD_LIKE, ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN, REMOVE_LIKE, SET_SELECTED, getSongsAction } from "../Redux/Actions"
 import { useDispatch, useSelector } from "react-redux"
 import { Alert, Col, Placeholder, Row } from "react-bootstrap"
 
@@ -13,6 +13,7 @@ const StaticCard = () => {
   const isLoading = useSelector((state) => state.search.isLoading)
   const hasError = useSelector((state) => state.search.hasError)
   const errorMsg = useSelector((state) => state.search.errorMsg)
+  const likes = useSelector((state) => state.like.content)
 
   const albumCard = (song) => {
     return (
@@ -27,6 +28,11 @@ const StaticCard = () => {
           Track: {song.title} <br />
           Artist: {song.artist.name}
         </p>
+        {!likes.includes(song.id) ? (
+          <i className='bi bi-star' onClick={() => dispatch({ type: ADD_LIKE, payload: song.id })} />
+        ) : (
+          <i className='bi bi-star-fill' onClick={() => dispatch({ type: REMOVE_LIKE, payload: song.id })} />
+        )}
       </Col>
     )
   }
