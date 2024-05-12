@@ -4,8 +4,11 @@ import prevIcon from "../assets/playerbuttons/prev.png"
 import playIcon from "../assets/playerbuttons/play.png"
 import nextIcon from "../assets/playerbuttons/next.png"
 import repeatIcon from "../assets/playerbuttons/repeat.png"
+import { useSelector } from "react-redux"
 
 const Player = () => {
+  const selected = useSelector((state) => state.selected.selectedSong)
+
   return (
     <Container className='fixed-bottom bg-container pt-1' fluid>
       <Row className='h-100'>
@@ -36,6 +39,12 @@ const Player = () => {
           </Row>
         </Col>
       </Row>
+      {selected && (
+        <div>
+          <p> {selected.name}</p>
+          <img src={selected.imgUrl}></img>
+        </div>
+      )}
     </Container>
   )
 }

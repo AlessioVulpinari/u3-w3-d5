@@ -163,10 +163,20 @@ ul {
   padding-top: 50px;
 }
 
-main:nth-child(4) {
+#hipHopSection {
   margin-bottom: 7rem;
 }
 
 .mainPage img {
   width: 200px;
+}
+
+.imgPlaceholder {
+  min-width: 150px;
+  min-height: 150px;
+}
+
+.paragraphPlaceholder {
+  min-width: 150px;
+  min-height: 10px;
 }

@@ -1,11 +1,7 @@
 import { Col, Row } from "react-bootstrap"
 import StaticCard from "./StaticCard"
-import { useSelector } from "react-redux"
-import { artistCard } from "../Redux/Actions"
 
 const MainSection = () => {
-  const search = useSelector((state) => state.search.content)
-
   return (
     <>
       <Col xs={12} md={9} className='offset-md-3 mainPage'>
@@ -18,7 +14,7 @@ const MainSection = () => {
             <a href='#'>DISCOVER</a>
           </Col>
         </Row>
-        {search ? artistCard(search.data.slice(0, 4)) : <StaticCard />}
+        <StaticCard />
       </Col>
     </>
   )

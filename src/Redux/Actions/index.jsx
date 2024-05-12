@@ -1,44 +1,26 @@
-import { Col, Row } from "react-bootstrap"
-
 export const STRIVE_ENDPOINT = "https://striveschool-api.herokuapp.com/api/deezer/search?q="
 export const ADD_TO_PLAYLIST = "ADD_TO_PLAYLIST"
 export const SET_SEARCH = "SET_SEARCH"
-
-export const albumCard = (song) => {
-  return (
-    <Col className='text-center' key={song.id}>
-      <img className='img-fluid' src={song.album.cover_medium} alt='track' />
-      <p>
-        Track: {song.title} <br />
-        Artist: {song.artist.name}
-      </p>
-    </Col>
-  )
-}
-
-export const artistCard = (artist, i) => {
-  return (
-    <Row key={"Playlist-" + i}>
-      <Col xs={10}>
-        <div className='artistCard'>
-          <h2>Playlist: {i + 1}</h2>
-          <Row xs={1} sm={2} lg={3} xl={4} className='imgLinks py-3'>
-            {artist.map((song) => albumCard(song))}
-          </Row>
-        </div>
-      </Col>
-    </Row>
-  )
-}
+export const SET_SEARCH_LOADING_ON = "SET_SEARCH_LOADING_ON"
+export const SET_SEARCH_LOADING_OFF = "SET_SEARCH_LOADING_OFF"
+export const SET_SEARCH_ERROR_ON = "SET_SEARCH_ERROR_ON"
+export const SET_SEARCH_ERROR_OFF = "SET_SEARCH_ERROR_OFF"
+export const SET_SELECTED = "SET_SELECTED"
+export const ADD_TO_QUEEN = "ADD_TO_QUEEN"
+export const ADD_TO_EMINEM = "ADD_TO_EMINEM"
+export const ADD_TO_PERRY = "ADD_TO_PERRY"
 
 export const getSongsAction = (artistName, actionType) => {
   return async (dispatch) => {
     try {
+      if (actionType === SET_SEARCH) {
+        dispatch({ type: SET_SEARCH_ERROR_OFF })
+        dispatch({ type: SET_SEARCH_LOADING_ON })
+      }
       const response = await fetch(STRIVE_ENDPOINT + artistName)
       if (response.ok) {
         const data = await response.json()
-        console.log(actionType)
-        dispatch({ type: actionType, payload: data })
+        dispatch({ type: actionType, payload: data.data })
       } else {
         if (response.status === 400) {
           throw new Error("400: Bad Request")
@@ -73,7 +55,13 @@ export const getSongsAction = (artistName, actionType) => {
         throw new Error("Generic Fetch Error")
       }
     } catch (error) {
-      console.log(error)
+      if (actionType === SET_SEARCH) {
+        dispatch({ type: SET_SEARCH_ERROR_ON, payload: error.message })
+      }
+    } finally {
+      if (actionType === SET_SEARCH) {
+        dispatch({ type: SET_SEARCH_LOADING_OFF })
+      }
     }
   }
 }
