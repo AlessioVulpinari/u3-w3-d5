@@ -1,4 +1,4 @@
-import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_PLAYLIST, ADD_TO_QUEEN } from "../Actions"
+import { ADD_TO_EMINEM, ADD_TO_PERRY, ADD_TO_QUEEN } from "../Actions"
 
 const initialState = {
   content: [],
@@ -9,12 +9,6 @@ const initialState = {
 
 const fetchSongsReducers = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_TO_PLAYLIST:
-      return {
-        ...state,
-        content: [...state.content, ...action.payload],
-      }
-
     case ADD_TO_QUEEN:
       return {
         ...state,
